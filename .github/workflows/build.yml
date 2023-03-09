@@ -24,13 +24,6 @@ jobs:
       matrix:
         image_flavor: [main, nvidia]
         major_version: [37]
-        include:
-          - major_version: 37
-            is_latest_version: true
-            is_stable_version: true
- #        - major_version: 38
- #          is_latest_version: false
- #          is_stable_version: false
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
@@ -46,5 +39,5 @@ jobs:
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
     - name: push
       shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:"${{ matrix.major_version }}
+      run: podman push ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:${{ matrix.major_version }}
       
