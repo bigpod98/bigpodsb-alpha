@@ -2,7 +2,7 @@ name: build-bigpod
 
 on:
   schedule:
-    - cron: '12 00 * * *'
+    - cron: '30 22 * * *'
   push:
     branches:
       - main
