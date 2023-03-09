@@ -37,7 +37,8 @@ jobs:
     - name: check
       shell: bash
       run: | 
-        echo $(./checks.sh ${{ matrix.image_flavor }})
+        ./checks.sh ${{ matrix.image_flavor }} >> test
+        cat test
     - name: build
       shell: bash
       run: podman build . -t buildoutput:latest -build-arg --build-arg IMAGE_TYPE=${./checks.sh ${{ matrix.image_flavor }}} --build-arg FEDORA_MAJOR_VERSION=${{ matrix.major_version }}
