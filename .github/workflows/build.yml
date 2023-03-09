@@ -34,13 +34,9 @@ jobs:
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
-    - name: check
-      shell: bash
-      run: | 
-        echo "image_type="$(./checks.sh ${{ matrix.image_flavor }}) >> GITHUB_OUTPUT
     - name: build
       shell: bash
-      run: podman build . -t buildoutput:latest -build-arg --build-arg IMAGE_TYPE=${./checks.sh ${{ matrix.image_flavor }}} --build-arg FEDORA_MAJOR_VERSION=${{ matrix.major_version }}
+      run: podman build . -t buildoutput:latest -build-arg --build-arg IMAGE_TYPE=$(./checks.sh ${{ matrix.image_flavor }}) --build-arg FEDORA_MAJOR_VERSION=${{ matrix.major_version }}
     - name: tag
       shell: bash
       run: |
