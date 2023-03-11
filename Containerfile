@@ -8,7 +8,7 @@ RUN rpm-ostree override remove evince-djvu evince-libs evince-previewer evince-t
 RUN rpm-ostree override remove vim-minimal virtualbox-guest-additions yelp yelp-libs yelp-xsl blackbox-terminal
 RUN rpm-ostree install code chromium fish iotop plasma-workspace-wallpapers qemu qemu-user-static qemu-user-binfmt \ 
     virt-manager libvirt qemu qemu-user-static qemu-user-binfmt edk2-ovmf cockpit-bridge cockpit-system cockpit-networkmanager cockpit-selinux cockpit-storaged \
-    cockpit-podman cockpit-machines dbus-x11 htop
+    cockpit-podman cockpit-machines dbus-x11 htop cockpit-pcp
 RUN rm -f /etc/yum.repos.d/vscode.repo
 RUN rm -rf /tmp/* /var/*
 RUN ostree container commit
