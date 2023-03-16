@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         image_flavor: [main, nvidia]
-        major_version: [37, 38]
+        major_version: [37]
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
