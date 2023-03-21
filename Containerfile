@@ -12,7 +12,6 @@ RUN rpm-ostree install cockpit-bridge cockpit-system cockpit-networkmanager cock
 RUN rm -f /etc/yum.repos.d/vscode.repo
 RUN /usr/1Password/after-remove.sh
 RUN rm -rf /usr/1Password 
-RUN rm -rf /usr/libexec/1password-after-install.sh
 RUN rm -rf /usr/share/icons/hicolor/{256x256,32x32,512x512,64x64}/apps/1password.png
 RUN rm -rf /tmp/* /var/*
 RUN ostree container commit
