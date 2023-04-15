@@ -11,6 +11,6 @@ RUN rpm-ostree install qemu qemu-user-static qemu-user-binfmt virt-manager libvi
 RUN rpm-ostree install cockpit-bridge cockpit-system cockpit-networkmanager cockpit-selinux cockpit-storaged cockpit-podman cockpit-machines cockpit-pcp
 RUN rm -f /etc/yum.repos.d/vscode.repo
 RUN rm -rf /tmp/* /var/*
-RUN flatpak remote-add --if-not-exists --user flathub-test https://flathub.org/repo/flathub.flatpakrepo
-RUN flatpak install org.pipewire.Helvum --noninteractive -y --user
+RUN flatpak remote-add --if-not-exists flathub-test https://flathub.org/repo/flathub.flatpakrepo
+RUN flatpak install org.pipewire.Helvum --noninteractive -y
 RUN ostree container commit
