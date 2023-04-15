@@ -22,7 +22,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        image_flavor: [main, nvidia]
+        image_flavor: [main]
         major_version: [37]
     steps:
     - name: Checkout Push to Registry action
@@ -39,5 +39,5 @@ jobs:
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
     - name: push
       shell: bash
-      run: podman push ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:${{ matrix.major_version }}
+      run: podman push ghcr.io/bigpod98/bigpodsb/alpha-flatpak:${{ matrix.major_version }}
       
