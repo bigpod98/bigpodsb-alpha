@@ -10,6 +10,7 @@ RUN rpm-ostree install code chromium fish iotop plasma-workspace-wallpapers dbus
 RUN rpm-ostree install qemu qemu-user-static qemu-user-binfmt virt-manager libvirt qemu qemu-user-static qemu-user-binfmt edk2-ovmf
 RUN rpm-ostree install cockpit-bridge cockpit-system cockpit-networkmanager cockpit-selinux cockpit-storaged cockpit-podman cockpit-machines cockpit-pcp
 RUN rpm-ostree install akmod-v4l2loopback dconf-editor mediawriter vlc
+RUN rpm-ostree override remove rpmfusion-free-release rpmfusion-nonfree-release
 RUN rm -f /etc/yum.repos.d/*.repo
 RUN rm -rf /tmp/* /var/*
 RUN ostree container commit
