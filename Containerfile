@@ -11,5 +11,7 @@ RUN rpm-ostree install qemu qemu-user-static qemu-user-binfmt virt-manager libvi
 RUN rpm-ostree install cockpit-bridge cockpit-system cockpit-networkmanager cockpit-selinux cockpit-storaged cockpit-podman cockpit-machines cockpit-pcp 
 RUN rpm-ostree install dconf-editor mediawriter vlc ceph-common python3-qt5 hplip-gui flatpak-builder neofetch
 RUN rpm-ostree override remove rpmfusion-free-release rpmfusion-nonfree-release
+RUN flatpak remote-add --if-not-exists flathub-test --user https://dl.flathub.org/repo/flathub.flatpakrepo
+RUN flatpak install -y md.obsidian.Obsidian
 RUN rm -rf /tmp/* /var/*
 RUN ostree container commit
