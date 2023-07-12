@@ -15,5 +15,6 @@ RUN rpm-ostree install /tmp/devpod.rpm
 RUN wget https://github.com/loft-sh/devpod/releases/latest/download/devpod-linux-amd64 -O /tmp/devpod
 RUN install -c -m 0755 /tmp/devpod /usr/bin
 RUN rpm-ostree override remove rpmfusion-free-release rpmfusion-nonfree-release
+RUN systemctl enable podman.service
 RUN rm -rf /tmp/* /var/*
 RUN ostree container commit
