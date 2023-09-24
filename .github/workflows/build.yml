@@ -24,6 +24,9 @@ jobs:
       matrix:
         image_flavor: [main, nvidia]
         major_version: [38, 39]
+        exclude: 
+          - image_flavor: nvidia
+            major_version: 38
     steps:
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
