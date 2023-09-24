@@ -40,4 +40,6 @@ jobs:
     - name: push
       shell: bash
       run: podman push ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:${{ matrix.major_version }}
-      
+    - name: test
+      shell: bash
+      run: df -h && free -h      
