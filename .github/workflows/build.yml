@@ -30,40 +30,19 @@ jobs:
     steps:
     - name: size available before
       shell: bash
-      run: df -h
-    - name: docker cache rm
-      shell: bash
-      run: sudo docker image prune --all --force
-    - name: podman cache rm system
-      shell: bash
-      run: sudo podman image prune --all --force
-    - name: podman cache rm user
-      shell: bash
-      run: podman image prune --all --force
-    - name: codeql rm
-      shell: bash
-      run: sudo rm -rf /opt/hostedtoolcache/CodeQL
-    - name: remove boost
-      shell: bash
-      run: sudo rm -rf /usr/local/share/boost
-    - name: remove AGENT_TOOLSDIRECTORY
-      shell: bash
-      run: sudo rm -rf $AGENT_TOOLSDIRECTORY
-    - name: ghc rm
-      run: sudo rm -rf /opt/ghc
-      shell: bash 
-    - name: apt rm
-      shell: bash
-      run: sudo rm -rf /var/cache/apt 
-    - name: clenaup dotnet
-      shell: bash
-      run: sudo rm -rf /usr/share/dotnet
-    - name: android rm
-      run: sudo rm -rf /usr/local/lib/android
-      shell: bash 
-    - name: size available after 
-      shell: bash
-      run: df -h
+      run: | 
+            df -h  &&
+            sudo docker image prune --all --force &&
+            sudo podman image prune --all --force &&
+            podman image prune --all --force &&
+            sudo rm -rf /opt/hostedtoolcache/CodeQL &&
+            sudo rm -rf /usr/local/share/boost &&
+            sudo rm -rf $AGENT_TOOLSDIRECTORY &&
+            sudo rm -rf /opt/ghc &&
+            sudo rm -rf /var/cache/apt &&
+            sudo rm -rf /usr/share/dotnet &&
+            sudo rm -rf /usr/local/lib/android &&
+            df -h
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
     - name: build
