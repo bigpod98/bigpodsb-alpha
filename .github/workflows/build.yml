@@ -28,8 +28,42 @@ jobs:
         #  - image_flavor: nvidia
         #    major_version: 38
     steps:
-    - name: max size
-      uses: bigpod98/mxsizeaction@main
+    - name: size available before
+      shell: bash
+      run: df -h
+    - name: docker cache rm
+      shell: bash
+      run: sudo docker image prune --all --force
+    - name: podman cache rm system
+      shell: bash
+      run: sudo podman image prune --all --force
+    - name: podman cache rm user
+      shell: bash
+      run: podman image prune --all --force
+    - name: codeql rm
+      shell: bash
+      run: sudo rm -rf /opt/hostedtoolcache/CodeQL
+    - name: remove boost
+      shell: bash
+      run: sudo rm -rf /usr/local/share/boost && sudo rm -rf $AGENT_TOOLSDIRECTORY
+    - name: remove AGENT_TOOLSDIRECTORY
+      shell: bash
+      run: sudo rm -rf $AGENT_TOOLSDIRECTORY
+    - name: ghc rm
+      run: sudo rm -rf /opt/ghc
+      shell: bash 
+    - name: apt rm
+      shell: bash
+      run: sudo apt autoremove -y adwaita-icon-theme aria2 azure-cli byobu dotnet-sdk-6.0 dotnet-sdk-7.0 dotnet-runtime-7.0 dotnet-runtime-6.0 docker-ce htop p7zip-full p7zip-rar postgresql-14 r-base-core r-base-dev r-base wget x11-common gcc-9 gcc-10 gcc-11 gcc-12 gcc-13 g++-9 g++-10 g++-11 g++-12 g++-13 gfortran-9 gfortran-10 gfortran-11 gfortran-12 google-chrome-stable hicolor-icon-theme humanity-icon-theme hunspell-en-us java-common javascript-common microsoft-edge-stable mono-runtime-common mysql-server mysql-client nginx php-common powershell rpm rpm2cpio ruby-full snapd zip apache2-bin bison bzip2 clang-12 clang-13 clang-14 clang-15 cron cpp-11 docker-ce-cli docker-buildx-plugin gcc-11-base gcc-12-base landscape-common llvm-12 llvm-13 llvm-14 llvm-15 mssql-tools mysql-common postgresql-client-common postgresql-client-14 python-is-python3 python3 ruby-dev ruby libllvm12 libllvm13 libllvm14 libllvm15 lxd-agent-loader make bolt ntfs-3g nano tmux tree unzip vim-common vim-tiny vim-runtime vim gsettings-desktop-schemas groff-base curl xauth xorg-sgml-doctools sqlite3 x11proto-dev conmon cpio btrfs-progs zsync xorriso plymouth catatonit busybox-static libpython3.10-minimal libpython3.10 libpython3.10-stdlib python-babel-localedata libc6-dev libc-dev-bin brotli containerd.io dosfstools ed fonts-noto-color-emoji fonts-ubuntu-console gdisk fdisk google-cloud-cli gsettings-desktop-schemas jq kmod libwayland-server0 manpages motd-news-config needrestart open-iscsi openssh-client openssh-server openssh-sftp-server parted rsync screen shellcheck ssh sshpass subversion swig4.0 swig tcl8.6 tcl tex-common texinfo tnftp unixodbc-common unixodbc-dev usb-modeswitch-data usb-modeswitch usb.ids usbutils xdg-user-dirs xz-utils keyboard-configuration lz4 xkb-data libsqlite3-0 && sudo apt install -y podman && sudo rm -rf /var/cache/apt 
+    - name: clenaup dotnet
+      shell: bash
+      run: sudo rm -rf /usr/share/dotnet
+    - name: android rm
+      run: sudo rm -rf /usr/local/lib/android
+      shell: bash 
+    - name: size available after 
+      shell: bash
+      run: df -h
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
     - name: build
