@@ -28,11 +28,10 @@ jobs:
         #  - image_flavor: nvidia
         #    major_version: 38
     steps:
+    - name: max size
+      uses: bigpod98/mxsizeaction@main
     - name: Checkout Push to Registry action
       uses: actions/checkout@v3
-    - name: apt rm
-      run: sudo apt autoremove -y adwaita-icon-theme aria2 azure-cli byobu dotnet-sdk-6.0 dotnet-sdk-7.0 dotnet-runtime-7.0 dotnet-runtime-6.0 docker-ce htop p7zip-full p7zip-rar postgresql-14 r-base-core r-base-dev r-base wget x11-common gcc-9 gcc-10 gcc-11 gcc-12 gcc-13 g++-9 g++-10 g++-11 g++-12 g++-13 gfortran-9 gfortran-10 gfortran-11 gfortran-12 google-chrome-stable hicolor-icon-theme humanity-icon-theme hunspell-en-us java-common javascript-common microsoft-edge-stable mono-runtime-common mysql-server mysql-client nginx php-common powershell rpm rpm2cpio ruby-full snapd zip apache2-bin bison bzip2 clang-12 clang-13 clang-14 clang-15 cron cpp-11 docker-ce-cli docker-buildx-plugin gcc-11-base gcc-12-base landscape-common llvm-12 llvm-13 llvm-14 llvm-15 mssql-tools mysql-common postgresql-client-common postgresql-client-14 python-is-python3 python3 ruby-dev ruby 
-      shell: bash
     - name: build
       shell: bash
       run: podman build . -t buildoutput:latest --build-arg IMAGE_TYPE=$(./checks.sh ${{ matrix.image_flavor }}) --build-arg FEDORA_MAJOR_VERSION=${{ matrix.major_version }}
