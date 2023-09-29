@@ -45,7 +45,7 @@ jobs:
       run: sudo rm -rf /opt/hostedtoolcache/CodeQL
     - name: remove boost
       shell: bash
-      run: sudo rm -rf /usr/local/share/boost && sudo rm -rf $AGENT_TOOLSDIRECTORY
+      run: sudo rm -rf /usr/local/share/boost
     - name: remove AGENT_TOOLSDIRECTORY
       shell: bash
       run: sudo rm -rf $AGENT_TOOLSDIRECTORY
