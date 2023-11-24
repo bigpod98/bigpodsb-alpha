@@ -17,7 +17,7 @@ esac
 cat > $IMAGE_INFO <<EOF
 {
   "image-name": "$IMAGE_NAME",
-  "image-flavor": "$IMAGE_FLAVOR",
+  "image-flavor": "${IMAGE_FLAVOR:1}",
   "image-vendor": "$IMAGE_VENDOR",
   "image-ref": "$IMAGE_REF",
   "image-tag":"$IMAGE_TAG",
