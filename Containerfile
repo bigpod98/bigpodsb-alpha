@@ -6,13 +6,15 @@ COPY etc /etc
 
 ARG IMAGE_NAME="bigpodsb-alpha"
 ARG IMAGE_VENDOR="bigpod98"
-ARG BASE_IMAGE_NAME="ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}"
+ARG IMAGE_TYPE
 ARG IMAGE_FLAVOR=$IMAGE_TYPE
-ARG FEDORA_MAJOR_VERSION=$FEDORA_MAJOR_VERSION
+ARG FEDORA_MAJOR_VERSION
+ARG BASE_IMAGE_NAME="ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}"
+
 
 COPY image-info.sh /tmp/image-info.sh
-RUN echo /tmp/image-info.sh
 RUN bash /tmp/image-info.sh
+RUN cat /tmp/image-info.sh
 RUN echo $IMAGE_TYPE
 RUN echo $IMAGE_FLAVOR
 RUN rpm-ostree override remove evince-djvu evince-libs evince-previewer evince-thumbnailer gnome-user-docs
