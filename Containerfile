@@ -13,7 +13,7 @@ ARG FEDORA_MAJOR_VERSION=$FEDORA_MAJOR_VERSION
 COPY image-info.sh /tmp/image-info.sh
 RUN echo /tmp/image-info.sh
 RUN bash /tmp/image-info.sh
-RUN echo $iMAGE_TYPE
+RUN echo $IMAGE_TYPE
 RUN echo $IMAGE_FLAVOR
 RUN rpm-ostree override remove evince-djvu evince-libs evince-previewer evince-thumbnailer gnome-user-docs
 RUN rpm-ostree override remove vim-minimal virtualbox-guest-additions yelp yelp-libs yelp-xsl gnome-user-share
