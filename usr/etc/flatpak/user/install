@@ -1,1 +1,10 @@
-
+org.mozilla.firefox
+org.freedesktop.Platform.ffmpeg-full//22.08
+org.gnome.Calculator
+org.gnome.Connections
+org.gnome.NautilusPreviewer
+org.gnome.TextEditor
+org.gnome.baobab
+com.mattjakeman.ExtensionManager
+com.github.tchx84.Flatseal
+io.github.celluloid_player.Celluloid
