@@ -11,7 +11,7 @@ ARG IMAGE_FLAVOR=$IMAGE_TYPE
 ARG FEDORA_MAJOR_VERSION
 ARG BASE_IMAGE_NAME="ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}"
 
-
+RUN wget https://copr.fedorainfracloud.org/coprs/ganto/lxc4/repo/fedora-"${FEDORA_MAJOR_VERSION}"/ganto-lxc4-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/ganto-lxc4-fedora-"${FEDORA_MAJOR_VERSION}".repo
 COPY image-info.sh /tmp/image-info.sh
 RUN bash /tmp/image-info.sh
 RUN cat /tmp/image-info.sh
@@ -23,7 +23,7 @@ RUN rpm-ostree install code chromium fish iotop plasma-workspace-wallpapers dbus
 RUN rpm-ostree install qemu qemu-user-static qemu-user-binfmt virt-manager libvirt qemu qemu-user-static qemu-user-binfmt edk2-ovmf
 RUN rpm-ostree install cockpit-bridge cockpit-system cockpit-networkmanager cockpit-selinux cockpit-storaged cockpit-podman cockpit-machines cockpit-pcp 
 RUN rpm-ostree install dconf-editor mediawriter vlc ceph-common python3-qt5 hplip-gui flatpak-builder neofetch code-insiders gnome-console azure-cli
-RUN rpm-ostree install lxc-libs rpmdevtools squashfs-tools
+RUN rpm-ostree install lxc-libs rpmdevtools squashfs-tools incus incus-agent
 RUN rpm-ostree override remove rpmfusion-free-release rpmfusion-nonfree-release
 RUN systemctl enable podman.service
 RUN rm -rf /tmp/* /var/*
