@@ -1,5 +1,13 @@
 ARG FEDORA_MAJOR_VERSION
 ARG IMAGE_TYPE
+
+FROM ubuntu:latest as installer
+RUN apt update && apt upgrade -y && apt install -y wget tar
+RUN wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
+RUN tar -xf node_exporter-1.7.0.linux-amd64.tar.gz
+RUN mkdir -p /ROOTFS/usr/bin/
+RUN cp /node_exporter-1.7.0.linux-amd64/node_exporter /ROOTFS/usr/bin/
+
 FROM ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}
 
 COPY etc /etc
@@ -25,6 +33,7 @@ RUN rpm-ostree install cockpit-bridge cockpit-system cockpit-networkmanager cock
 RUN rpm-ostree install dconf-editor mediawriter vlc ceph-common python3-qt5 hplip-gui flatpak-builder neofetch code-insiders gnome-console azure-cli
 RUN rpm-ostree install lxc-libs rpmdevtools squashfs-tools incus incus-agent
 RUN rpm-ostree override remove rpmfusion-free-release rpmfusion-nonfree-release
+COPY --from=installer /ROOTFS/* /
 RUN systemctl enable podman.service
 RUN rm -rf /tmp/* /var/*
 RUN ostree container commit
