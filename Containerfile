@@ -35,5 +35,6 @@ RUN rpm-ostree install lxc-libs rpmdevtools squashfs-tools incus incus-agent
 RUN rpm-ostree override remove rpmfusion-free-release rpmfusion-nonfree-release
 COPY --from=installer /ROOTFS/* /
 RUN systemctl enable podman.service
+RUN systemctl enable node_exporter.service
 RUN rm -rf /tmp/* /var/*
 RUN ostree container commit
