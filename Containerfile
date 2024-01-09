@@ -36,5 +36,6 @@ RUN rpm-ostree override remove rpmfusion-free-release rpmfusion-nonfree-release
 COPY --from=installer /ROOTFS/* /
 RUN systemctl enable podman.service
 RUN systemctl enable node_exporter.service
+RUN systemctl enable incus.service
 RUN rm -rf /tmp/* /var/*
 RUN ostree container commit
