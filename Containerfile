@@ -15,6 +15,7 @@ FROM ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}
 
 COPY etc /etc
 
+
 ARG IMAGE_NAME="bigpodsb-alpha"
 ARG IMAGE_VENDOR="bigpod98"
 ARG IMAGE_TYPE
