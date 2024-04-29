@@ -31,7 +31,6 @@ RUN rpm-ostree install lxc-libs rpmdevtools squashfs-tools incus incus-agent
 RUN rpm-ostree override remove rpmfusion-free-release rpmfusion-nonfree-release
 COPY --from=helm /usr/bin/helm /usr/bin/helm
 COPY --from=kubectl /usr/bin/kubectl /usr/bin/kubectl
-COPY --from=installer /ROOTFS/* /
 RUN systemctl enable podman.service
 RUN systemctl enable node_exporter.service
 RUN systemctl enable incus.service
