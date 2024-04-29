@@ -1,13 +1,5 @@
 ARG FEDORA_MAJOR_VERSION
 ARG IMAGE_TYPE
-
-FROM ubuntu:latest as installer
-RUN apt update && apt upgrade -y && apt install -y wget tar
-RUN wget https://github.com/prometheus/node_exporter/releases/download/v1.7.0/node_exporter-1.7.0.linux-amd64.tar.gz
-RUN tar -xf node_exporter-1.7.0.linux-amd64.tar.gz
-RUN mkdir -p /ROOTFS/usr/bin/
-RUN cp /node_exporter-1.7.0.linux-amd64/node_exporter /ROOTFS/usr/bin/
-
 FROM cgr.dev/chainguard/helm:latest as helm
 FROM cgr.dev/chainguard/kubectl:latest as kubectl
 
