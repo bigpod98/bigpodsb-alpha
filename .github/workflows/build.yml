@@ -52,6 +52,11 @@ jobs:
       shell: bash
       run: |
         podman tag buildoutput:latest ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:${{ matrix.major_version }}
+    - name: tag40aslatest
+      shell: bash
+      if: ${{ matrix.major_version }} == 40
+      run: |
+        podman tag buildoutput:latest ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:latest${{ matrix.major_version }}
     - name: login
       shell: bash
       run: podman login ghcr.io -u bigpod98 -p ${{ secrets.GITHUB_TOKEN }}
