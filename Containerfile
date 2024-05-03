@@ -1,5 +1,6 @@
 FROM fedora:39 AS copyfrom
 RUN dnf install -y dotnet-sdk-7.0 --downloadonly
+RUN mkdir /pkg
 RUN cp /var/cache/dnf/updates-*/packages/* /pkg/
 
 ARG FEDORA_MAJOR_VERSION
