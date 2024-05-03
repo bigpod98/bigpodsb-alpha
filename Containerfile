@@ -1,24 +1,23 @@
-FROM fedora:39 AS copyfrom
-RUN dnf install -y dotnet-sdk-7.0 --downloadonly
-RUN mkdir /pkg
-RUN cp /var/cache/dnf/updates-*/packages/* /pkg/
 
 ARG FEDORA_MAJOR_VERSION
 ARG IMAGE_TYPE
 FROM cgr.dev/chainguard/helm:latest as helm
 FROM cgr.dev/chainguard/kubectl:latest as kubectl
 
+FROM fedora:39 AS copyfrom
+RUN dnf install -y dotnet-sdk-7.0 --downloadonly
+RUN mkdir /pkg
+RUN cp /var/cache/dnf/updates-*/packages/* /pkg/
+
 FROM ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}
-
-COPY etc /etc
-
-
 ARG IMAGE_NAME="bigpodsb-alpha"
 ARG IMAGE_VENDOR="bigpod98"
 ARG IMAGE_TYPE
 ARG IMAGE_FLAVOR=$IMAGE_TYPE
 ARG FEDORA_MAJOR_VERSION
 ARG BASE_IMAGE_NAME="ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}"
+
+COPY etc /etc
 
 COPY --from=copyfrom /pkg /tmp/pkg
 RUN rpm-ostree install /tmp/pkg/*
