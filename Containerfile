@@ -1,3 +1,7 @@
+FROM fedora:39 AS copyfrom
+RUN dnf install -y dotnet-sdk-7.0 --downloadonly
+RUN cp /var/cache/dnf/updates-*/packages/* /pkg/
+
 ARG FEDORA_MAJOR_VERSION
 ARG IMAGE_TYPE
 FROM cgr.dev/chainguard/helm:latest as helm
@@ -14,6 +18,9 @@ ARG IMAGE_TYPE
 ARG IMAGE_FLAVOR=$IMAGE_TYPE
 ARG FEDORA_MAJOR_VERSION
 ARG BASE_IMAGE_NAME="ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}"
+
+COPY --from=copyfrom /pkg /tmp/pkg
+RUN rpm-ostree install /tmp/pkg/*
 
 RUN wget https://copr.fedorainfracloud.org/coprs/ganto/lxc4/repo/fedora-"${FEDORA_MAJOR_VERSION}"/ganto-lxc4-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/ganto-lxc4-fedora-"${FEDORA_MAJOR_VERSION}".repo
 COPY image-info.sh /tmp/image-info.sh
