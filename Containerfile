@@ -19,9 +19,6 @@ ARG BASE_IMAGE_NAME="ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSIO
 
 COPY etc /etc
 
-COPY --from=copyfrom /pkg /tmp/pkg
-RUN rpm-ostree install /tmp/pkg/*
-
 RUN wget https://copr.fedorainfracloud.org/coprs/ganto/lxc4/repo/fedora-"${FEDORA_MAJOR_VERSION}"/ganto-lxc4-fedora-"${FEDORA_MAJOR_VERSION}".repo -O /etc/yum.repos.d/ganto-lxc4-fedora-"${FEDORA_MAJOR_VERSION}".repo
 COPY image-info.sh /tmp/image-info.sh
 RUN bash /tmp/image-info.sh
