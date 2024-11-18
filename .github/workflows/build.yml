@@ -23,7 +23,7 @@ jobs:
       fail-fast: false
       matrix:
         image_flavor: [main, nvidia]
-        major_version: [39, 40]
+        major_version: [40, 41]
         #exclude: 
         #  - image_flavor: nvidia
         #    major_version: 38
@@ -54,7 +54,7 @@ jobs:
         podman tag buildoutput:latest ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:${{ matrix.major_version }}
     - name: tag40aslatest
       shell: bash
-      if: matrix.major_version == 40
+      if: matrix.major_version == 41
       run: |
         podman tag buildoutput:latest ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:latest
     - name: login
@@ -64,6 +64,6 @@ jobs:
       shell: bash
       run: podman push ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:${{ matrix.major_version }}
     - name: pushlatest
-      if: matrix.major_version == 40
+      if: matrix.major_version == 41
       shell: bash
       run: podman push ghcr.io/bigpod98/bigpodsb/alpha-${{ matrix.image_flavor }}:latest
