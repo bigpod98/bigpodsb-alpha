@@ -5,9 +5,14 @@ FROM cgr.dev/chainguard/helm:latest as helm
 FROM cgr.dev/chainguard/kubectl:latest as kubectl
 
 FROM fedora:39 AS copyfrom
+
 RUN dnf install -y dotnet-sdk-7.0 --downloadonly
 RUN mkdir /pkg
 RUN cp /var/cache/dnf/updates-*/packages/* /pkg/
+
+FROM fedora:latest AS edge
+COPY /etc/yum.repos.d/msedge.repo /etc/yum.repos.d/msedge.repo
+RUN dnf install -y microsoft-edge-stable
 
 FROM ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}
 ARG IMAGE_NAME="bigpodsb-alpha"
@@ -32,6 +37,7 @@ qemu qemu-user-static qemu-user-binfmt virt-manager libvirt qemu qemu-user-stati
 cockpit-system cockpit-networkmanager cockpit-selinux cockpit-storaged cockpit-podman cockpit-machines cockpit-ws dconf-editor mediawriter vlc ceph-common \
 python3-qt5 hplip-gui flatpak-builder code-insiders lxc-libs rpmdevtools squashfs-tools incus incus-agent kde-connect git-filter-repo git-subtree containerd.io \
 docker-ce docker-ce-cli docker-buildx-plugin docker-compose-plugin devpod cockpit cockpit-ostree cockpit-packagekit u2f-server dotnet-sdk-9.0
+COPY --from=edge /usr/opt/microsoft /usr/opt/microsoft
 COPY --from=helm /usr/bin/helm /usr/bin/helm
 COPY --from=kubectl /usr/bin/kubectl /usr/bin/kubectl
 RUN systemctl enable podman.service
