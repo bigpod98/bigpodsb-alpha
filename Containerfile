@@ -12,6 +12,7 @@ RUN cp /var/cache/dnf/updates-*/packages/* /pkg/
 
 FROM fedora:latest AS edge
 COPY /etc/yum.repos.d/msedge.repo /etc/yum.repos.d/msedge.repo
+RUN rm /var/lib/rpm/.rpm.lock
 RUN dnf install -y microsoft-edge-stable
 
 FROM ghcr.io/ublue-os/bluefin${IMAGE_TYPE}:${FEDORA_MAJOR_VERSION}
